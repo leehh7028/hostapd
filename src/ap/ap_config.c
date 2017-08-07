@@ -126,7 +126,7 @@ struct hostapd_config * hostapd_config_defaults(void)
 
 	struct hostapd_config *conf;
 	struct hostapd_bss_config *bss;
-	const int aCWmin = 4, aCWmax = 10;
+	const int aCWmin = 0, aCWmax = 0;
 	const struct hostapd_wmm_ac_params ac_bk =
 		{ aCWmin, aCWmax, 7, 0, 0 }; /* background traffic */
 	const struct hostapd_wmm_ac_params ac_be =
