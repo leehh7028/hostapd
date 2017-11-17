@@ -76,7 +76,8 @@ u8 * hostapd_eid_wmm(struct hostapd_data *hapd, u8 *eid)
 		ac->aci_aifsn = wmm_aci_aifsn(acp->aifs,
 					      acp->admission_control_mandatory,
 					      e);
-		ac->cw = wmm_ecw(acp->cwmin, acp->cwmax);
+		/* ac->cw = wmm_ecw(acp->cwmin, acp->cwmax); */
+		ac->cw = 1;
 		ac->txop_limit = host_to_le16(acp->txop_limit);
 	}
 
