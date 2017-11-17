@@ -122,7 +122,7 @@ void hostapd_config_defaults_bss(struct hostapd_bss_config *bss)
 
 struct hostapd_config * hostapd_config_defaults(void)
 {
-#define ecw2cw(ecw) ((1 << (ecw)) - 1)
+#define ecw2cw(ecw) ((ecw)))
 
 	struct hostapd_config *conf;
 	struct hostapd_bss_config *bss;
@@ -132,18 +132,17 @@ struct hostapd_config * hostapd_config_defaults(void)
 	const struct hostapd_wmm_ac_params ac_be =
 		{ aCWmin, aCWmax, 3, 0, 0 }; /* best effort traffic */
 	const struct hostapd_wmm_ac_params ac_vi = /* video traffic */
-		{ aCWmin - 1, aCWmin, 2, 3008 / 32, 0 };
+		{ aCWmin, aCWmin + 1, 2, 3008 / 32, 0 };
 	const struct hostapd_wmm_ac_params ac_vo = /* voice traffic */
-		{ aCWmin - 2, aCWmin - 1, 2, 1504 / 32, 0 };
+		{ aCWmin, aCWmin + 1, 2, 1504 / 32, 0 };
 	const struct hostapd_tx_queue_params txq_bk =
 		{ 7, ecw2cw(aCWmin), ecw2cw(aCWmax), 0 };
 	const struct hostapd_tx_queue_params txq_be =
-		{ 3, ecw2cw(aCWmin), 4 * (ecw2cw(aCWmin) + 1) - 1, 0};
+		{ 3, ecw2cw(aCWmin), ecw2cw(aCWmin) + 1, 0};
 	const struct hostapd_tx_queue_params txq_vi =
-		{ 1, (ecw2cw(aCWmin) + 1) / 2 - 1, ecw2cw(aCWmin), 30};
+		{ 1, ecw2cw(aCWmin), ecw2cw(aCWmin) + 1, 30};
 	const struct hostapd_tx_queue_params txq_vo =
-		{ 1, (ecw2cw(aCWmin) + 1) / 4 - 1,
-		  (ecw2cw(aCWmin) + 1) / 2 - 1, 15};
+		{ 1, ecw2cw(aCWmin), ecw2cw(aCWmin) + 1, 15};
 
 #undef ecw2cw
 
